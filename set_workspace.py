@@ -6,6 +6,7 @@ import subprocess
 from pathlib import Path
 
 dir_path = Path(os.path.dirname(os.path.realpath(__file__)))
+WORKSPACE_ENV_FILE = dir_path / '.workspace.env'
 
 
 def print_ident(text):
@@ -36,5 +37,29 @@ def set_subscription_id(values):
     print(f"Subscription ID set to: {values['subscription_id']}")
 
 
+def write_file(file, values, line_formatter):
+    warning = '\n# !!! WARNING: This file is managed by "set_workspace" and may be overwritten anytime!!!\n\n'
+    lines_to_write = [warning]
+    for k, v in values.items():
+        lines_to_write.append(line_formatter(k, v))
+
+    lines_to_write.append(warning)
+
+    with open(file, 'w') as f:
+        f.writelines(lines_to_write)
+
+    # make file only accesible by current user (due to secrets)
+    file.chmod(0o600)
+
+
+def write_env_file(values):
+    def line_formatter(k, v):
+        varname = k.upper().replace('-', '_')
+        return f'export {varname}="{v}"\n'
+
+    write_file(WORKSPACE_ENV_FILE, values, line_formatter)
+
+
 VALUES = read_workspace_values()
 set_subscription_id(VALUES)
+write_env_file(VALUES)
