@@ -27,7 +27,7 @@ def read_workspace_values():
     return values
 
 
-def switch_subscription_id(values):
+def set_subscription_id(values):
     current_subscription = get_current_subscription()
     expected_subscription = values['subscription_id']
     if current_subscription != expected_subscription:
@@ -37,4 +37,4 @@ def switch_subscription_id(values):
 
 
 VALUES = read_workspace_values()
-switch_subscription_id(VALUES)
+set_subscription_id(VALUES)
