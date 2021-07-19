@@ -66,8 +66,8 @@ def determine_variable_names_expected_by_terraform():
     tfvars = []
     varfile = dir_path / 'vars.tf'
     with open(varfile, 'r') as f:
-        for l in f.readlines():
-            match = re.match(r'^variable\s*"?(\w+)"?\s*', l.strip())
+        for line in f.readlines():
+            match = re.match(r'^variable\s*"?(\w+)"?\s*', line.strip())
             if match:
                 tfvars.append(match.group(1))
     return tfvars
@@ -75,7 +75,7 @@ def determine_variable_names_expected_by_terraform():
 
 def filter_values_for_terraform(values):
     expected = determine_variable_names_expected_by_terraform()
-    return {k:v for k,v in values.items() if k in expected}
+    return {k: v for k, v in values.items() if k in expected}
 
 
 def write_terraform_value_file(values):
