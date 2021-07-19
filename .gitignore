@@ -33,3 +33,4 @@ override.tf.json
 
 # Secrets
 .workspace.env
+.workspace.tfvars

@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 import json
 import os
+import re
 import shlex
 import subprocess
 from pathlib import Path
 
 dir_path = Path(os.path.dirname(os.path.realpath(__file__)))
 WORKSPACE_ENV_FILE = dir_path / '.workspace.env'
+WORKSPACE_TF_VARS_FILE = dir_path / '.workspace.tfvars'
 
 
 def print_ident(text):
@@ -23,7 +25,7 @@ def get_current_subscription():
 
 
 def read_workspace_values():
-    with open(dir_path / 'workspace_all.json', 'r') as f:
+    with open(dir_path / 'workspace.json', 'r') as f:
         values = json.load(f)
     return values
 
@@ -60,6 +62,31 @@ def write_env_file(values):
     write_file(WORKSPACE_ENV_FILE, values, line_formatter)
 
 
+def determine_variable_names_expected_by_terraform():
+    tfvars = []
+    varfile = dir_path / 'vars.tf'
+    with open(varfile, 'r') as f:
+        for l in f.readlines():
+            match = re.match(r'^variable\s*"?(\w+)"?\s*', l.strip())
+            if match:
+                tfvars.append(match.group(1))
+    return tfvars
+
+
+def filter_values_for_terraform(values):
+    expected = determine_variable_names_expected_by_terraform()
+    return {k:v for k,v in values.items() if k in expected}
+
+
+def write_terraform_value_file(values):
+    def line_formatter(k, v):
+        return f'{k}="{v}"\n'
+
+    values = filter_values_for_terraform(values)
+    write_file(WORKSPACE_TF_VARS_FILE, values, line_formatter)
+
+
 VALUES = read_workspace_values()
 set_subscription_id(VALUES)
 write_env_file(VALUES)
+write_terraform_value_file(VALUES)
