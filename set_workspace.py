@@ -48,7 +48,7 @@ def write_file(file, values, line_formatter):
     with open(file, 'w') as f:
         f.writelines(lines_to_write)
 
-    # make file only accesible by current user (due to secrets)
+    # make file only accessible by current user (due to secrets)
     file.chmod(0o600)
 
 
