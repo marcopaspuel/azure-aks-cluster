@@ -16,7 +16,7 @@ storage=$(az storage account create \
     )
 
 # Create container for Terraform Remote State
-containerName='tfstate'
+containerName=$TF_STATE_CONTAINER_NAME
 az storage container create \
     --name ${containerName} \
     --account-name $(echo "$storage" | jq .name -r) \
