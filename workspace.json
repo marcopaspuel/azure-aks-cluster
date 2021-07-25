@@ -1,3 +1,5 @@
 {
-    "subscription_id": "4d9228ff-49b1-44de-b0c7-887cc3983264"
+    "subscription_id": "4d9228ff-49b1-44de-b0c7-887cc3983264",
+    "tf_state_group_name": "demo-tf-state",
+    "tf_state_group_location": "westeurope"
 }
