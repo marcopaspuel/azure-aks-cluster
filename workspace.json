@@ -1,6 +1,6 @@
 {
-    "subscription_id": "33aaa451-2be4-4e1d-b677-29de9102e582",
-    "tenant_id": "f3566ade-b0fc-444d-bf20-cb164c119c6f",
+    "subscription_id": "",
+    "tenant_id": "",
     "tf_state_rg_name": "aks-neptune-tf-state",
     "tf_state_rg_location": "westeurope",
     "tf_state_account_name": "tstateaksneptune",
