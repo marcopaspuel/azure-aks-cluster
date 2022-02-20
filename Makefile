@@ -12,3 +12,13 @@ create-tf-state:
 .PHONY: init
 init:
 	scripts/init_remote_tf_state.sh
+
+## Terraform plan
+.PHONY: plan
+plan:
+	cd terraform && terraform plan -var-file=".workspace.tfvars"
+
+## Terraform apply
+.PHONY: apply
+apply:
+	cd terraform && terraform apply -var-file=".workspace.tfvars"

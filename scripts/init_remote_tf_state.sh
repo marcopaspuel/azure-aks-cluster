@@ -11,6 +11,7 @@ set -euo pipefail
 ACCOUNT_KEY=$(az storage account keys list --resource-group "$TF_STATE_RG_NAME" --account-name "$TF_STATE_ACCOUNT_NAME" --query '[0].value' -o tsv)
 
 # Initialise Terraform
+cd terraform
 rm -R -f .terraform
 terraform init \
     -backend-config="storage_account_name=$TF_STATE_ACCOUNT_NAME" \

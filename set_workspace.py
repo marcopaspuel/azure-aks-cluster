@@ -64,7 +64,7 @@ def write_env_file(values):
 
 def determine_variable_names_expected_by_terraform():
     tfvars = []
-    varfile = dir_path / 'vars.tf'
+    varfile = dir_path / 'terraform/input.tf'
     with open(varfile, 'r') as f:
         for line in f.readlines():
             match = re.match(r'^variable\s*"?(\w+)"?\s*', line.strip())
