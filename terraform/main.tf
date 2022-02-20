@@ -24,30 +24,10 @@ module "resource_group" {
   project              = var.project
 }
 
-resource "random_pet" "prefix" {}
-
-resource "azurerm_kubernetes_cluster" "default" {
-  name                = "${var.aks_cluster_name}-aks"
-  location            = var.aks_rg_location
-  resource_group_name = var.aks_rg_name
-  dns_prefix          = "${var.aks_cluster_name}-k8s"
-
-  default_node_pool {
-    name            = "default"
-    node_count      = 2
-    vm_size         = "Standard_D2_v2"
-    os_disk_size_gb = 30
-  }
-
-  identity {
-    type = "SystemAssigned"
-  }
-
-  role_based_access_control {
-    enabled = true
-  }
-
-  tags = {
-    project = var.project
-  }
+module "aks" {
+  source               = "./modules/aks"
+  resource_group       = var.aks_rg_name
+  location             = var.aks_rg_location
+  aks_cluster_name     = var.aks_cluster_name
+  project              = var.project
 }
