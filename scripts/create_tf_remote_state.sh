@@ -2,12 +2,12 @@
 source $(dirname $0)/../.workspace.env
 
 # Create Resource Group for Terraform Remote State
-groupName=$TF_STATE_GROUP_NAME
-groupLocation=$TF_STATE_GROUP_LOCATION
+groupName=TF_STATE_RG_NAME
+groupLocation=TF_STATE_RG_LOCATION
 group=$(az group create --name ${groupName} --location "${groupLocation}" --verbose)
 
 # Create Storage Account for Terraform Remote State
-accountName="tstate$RANDOM"
+accountName=TF_STATE_ACCOUNT_NAME
 storage=$(az storage account create \
     --name ${accountName} \
     --resource-group $(echo "$group" | jq .name -r) \

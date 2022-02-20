@@ -1,6 +1,7 @@
 {
-    "subscription_id": "4d9228ff-49b1-44de-b0c7-887cc3983264",
-    "tf_state_group_name": "demo-tf-state",
-    "tf_state_group_location": "westeurope",
+    "subscription_id": "33aaa451-2be4-4e1d-b677-29de9102e582",
+    "tf_state_rg_name": "aks-neptune-tf-state",
+    "tf_state_rg_location": "westeurope",
+    "tf_state_account_name": "tstateaksneptune",
     "tf_state_container_name": "tfstate"
 }
