@@ -8,7 +8,7 @@ from pathlib import Path
 
 dir_path = Path(os.path.dirname(os.path.realpath(__file__)))
 WORKSPACE_ENV_FILE = dir_path / '.workspace.env'
-WORKSPACE_TF_VARS_FILE = dir_path / '.workspace.tfvars'
+WORKSPACE_TF_VARS_FILE = dir_path / 'terraform/.workspace.tfvars'
 
 
 def print_ident(text):
