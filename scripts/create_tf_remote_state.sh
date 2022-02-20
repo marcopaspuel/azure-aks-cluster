@@ -1,23 +1,25 @@
 #!/bin/bash
+# Helper script to configure the storage account and state backend for Terraform
+
+# Source env variables
 source $(dirname $0)/../.workspace.env
 
-# Create Resource Group for Terraform Remote State
-groupName=$TF_STATE_GROUP_NAME
-groupLocation=$TF_STATE_GROUP_LOCATION
-group=$(az group create --name ${groupName} --location "${groupLocation}" --verbose)
+# Exit if something fails
+set -euo pipefail
 
-# Create Storage Account for Terraform Remote State
-accountName="tstate$RANDOM"
-storage=$(az storage account create \
-    --name ${accountName} \
-    --resource-group $(echo "$group" | jq .name -r) \
-    --location $(echo "$group" | jq .location -r) \
-    --sku Standard_LRS \
-    )
+# Create resource group
+az group create --name "$TF_STATE_RG_NAME" --location "$TF_STATE_RG_LOCATION"
 
-# Create container for Terraform Remote State
-containerName=$TF_STATE_CONTAINER_NAME
-az storage container create \
-    --name ${containerName} \
-    --account-name $(echo "$storage" | jq .name -r) \
-    --account-key $(az storage account keys list --resource-group $(echo "$group" | jq .name -r) --account-name $(echo "$storage" | jq .name -r) | jq .[0].value -r)
+# Create storage account
+az storage account create --resource-group "$TF_STATE_RG_NAME" --name "$TF_STATE_ACCOUNT_NAME" --sku Standard_LRS --encryption-services blob
+
+# Get storage account key
+ACCOUNT_KEY=$(az storage account keys list --resource-group "$TF_STATE_RG_NAME" --account-name "$TF_STATE_ACCOUNT_NAME" --query '[0].value' -o tsv)
+
+# Create blob container
+az storage container create --name "$TF_STATE_CONTAINER_NAME" --account-name "$TF_STATE_ACCOUNT_NAME" --account-key "$ACCOUNT_KEY"
+
+# Print necessary outputs
+echo "storage_account_name: $TF_STATE_ACCOUNT_NAME"
+echo "container_name: $TF_STATE_CONTAINER_NAME"
+echo "access_key: $ACCOUNT_KEY"

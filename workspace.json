@@ -1,6 +1,12 @@
 {
-    "subscription_id": "4d9228ff-49b1-44de-b0c7-887cc3983264",
-    "tf_state_group_name": "demo-tf-state",
-    "tf_state_group_location": "westeurope",
-    "tf_state_container_name": "tfstate"
+    "subscription_id": "",
+    "tenant_id": "",
+    "tf_state_rg_name": "aks-neptune-tf-state",
+    "tf_state_rg_location": "westeurope",
+    "tf_state_account_name": "tstateaksneptune",
+    "tf_state_container_name": "tfstate",
+    "aks_rg_name": "aks-neptune-rg",
+    "aks_cluster_name" : "neptune",
+    "aks_rg_location": "westeurope",
+    "project": "neptune"
 }
