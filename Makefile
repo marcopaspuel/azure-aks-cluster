@@ -30,5 +30,6 @@ destroy:
 
 ## Remove Terraform state
 .PHONY: destroy-tf-state
+include .workspace.env
 destroy-tf-state:
 	az group delete --no-wait --name $(TF_STATE_RG_NAME)
