@@ -27,10 +27,10 @@ module "resource_group" {
 resource "random_pet" "prefix" {}
 
 resource "azurerm_kubernetes_cluster" "default" {
-  name                = "${random_pet.prefix.id}-aks"
+  name                = "${var.aks_cluster_name}-aks"
   location            = var.aks_rg_location
   resource_group_name = var.aks_rg_name
-  dns_prefix          = "${random_pet.prefix.id}-k8s"
+  dns_prefix          = "${var.aks_cluster_name}-k8s"
 
   default_node_pool {
     name            = "default"
@@ -48,6 +48,6 @@ resource "azurerm_kubernetes_cluster" "default" {
   }
 
   tags = {
-    environment = "Demo"
+    project = var.project
   }
 }
