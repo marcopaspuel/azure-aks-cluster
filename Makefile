@@ -22,3 +22,13 @@ plan:
 .PHONY: apply
 apply:
 	cd terraform && terraform apply -var-file=".workspace.tfvars"
+
+## Terraform destroy
+.PHONY: destroy
+destroy:
+	cd terraform && terraform destroy -var-file=".workspace.tfvars"
+
+## Remove Terraform state
+.PHONY: destroy-tf-state
+destroy-tf-state:
+	az group delete --no-wait --name $(TF_STATE_RG_NAME)
