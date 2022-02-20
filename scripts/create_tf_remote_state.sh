@@ -1,4 +1,7 @@
 #!/bin/bash
+# Helper script to configure the storage account and state backend for Terraform
+
+# Source env variables
 source $(dirname $0)/../.workspace.env
 
 # Exit if something fails
