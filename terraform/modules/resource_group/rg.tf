@@ -1,4 +1,4 @@
-resource "azurerm_resource_group" "neptune" {
+resource "azurerm_resource_group" "default" {
   name     = var.resource_group
   location = var.location
 
