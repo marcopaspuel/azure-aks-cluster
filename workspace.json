@@ -1,12 +1,12 @@
 {
     "subscription_id": "",
     "tenant_id": "",
-    "tf_state_rg_name": "aks-neptune-tf-state",
+    "tf_state_rg_name": "aks-flyte-tf-state",
     "tf_state_rg_location": "westeurope",
-    "tf_state_account_name": "tstateaksneptune",
+    "tf_state_account_name": "tstateaksflyte",
     "tf_state_container_name": "tfstate",
-    "aks_rg_name": "aks-neptune-rg",
-    "aks_cluster_name" : "neptune",
+    "aks_rg_name": "aks-flyte-rg",
+    "aks_cluster_name" : "flyte",
     "aks_rg_location": "westeurope",
-    "project": "neptune"
+    "project": "flyte-test"
 }
